@@ -23,7 +23,7 @@ from random import random
 
 def create_sign(session: requests.Session, link: str, sess: str, x_bc: str, auth_id: int, text="onlyfans"):
     # Users: 300000 | Creators: 301000
-    time2 = str(int(round(time.time())))
+    time2 = str(int(round(time.time() * 1000-301000)))
     path = urlparse(link).path
     query = urlparse(link).query
     path = path if not query else f"{path}?{query}"
@@ -468,7 +468,7 @@ class create_subscription():
 
 
 class start():
-    def __init__(self,custom_request=callable) -> None:
+    def __init__(self, custom_request=callable) -> None:
         self.auths: list[create_auth] = []
         self.custom_request = custom_request
         self.max_threads = -1
@@ -756,7 +756,6 @@ class create_auth():
         self.subscriptions = results
         return results
 
-
     def get_chats(self, resume=None, refresh=True, limit=10, offset=0):
         api_type = "chats"
         if not self.active:
@@ -789,6 +788,7 @@ class create_auth():
         items.sort(key=lambda x: x["withUser"]["id"], reverse=True)
         self.chats = items
         return items
+
     def get_mass_messages(self, resume=None, refresh=True, limit=10, offset=0) -> list:
         api_type = "mass_messages"
         if not self.active:
